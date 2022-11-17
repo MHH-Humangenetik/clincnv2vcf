@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pandas = "*"
+openpyxl = "*"
+pyfaidx = "*"
+
+[dev-packages]
+bandit = "*"
+black = "*"
+mypy = "*"
+
+[requires]
+python_version = "3.9"
