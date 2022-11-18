@@ -1,0 +1,28 @@
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ['windows-latest', 'ubuntu-latest', 'macos-latest']
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Setup dependencies
+      run: |
+        pip install pipenv pyinstaller
+        pipenv requirements > requirements.txt
+        pip install -r requirements.txt
+    - name: Build executable
+      run: pyinstaller --onefile --name clincnv2vcf_${{ matrix.os }} clincnv2vcf.py
+    - name: Upload aritfact
+      uses: actions/upload-artifact@v2
+      with:
+        path: dist/*
