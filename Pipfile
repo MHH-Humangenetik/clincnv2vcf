@@ -12,6 +12,9 @@ pyfaidx = "*"
 bandit = "*"
 black = "*"
 mypy = "*"
+pytest = "*"
+ruff = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.9"

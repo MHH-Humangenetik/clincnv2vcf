@@ -1,0 +1,47 @@
+name: Run pytest unit tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Setup dependencies
+        run: |
+          pip install pipenv
+          pipenv requirements --dev > requirements.txt
+          pip install -r requirements.txt
+      - name: Lint with ruff
+        # default set of ruff rules with GitHub Annotations
+        run: |
+          ruff --format=github --target-version=py39 .
+      - name: Test with pytest
+        run: |
+          pytest --cov=clincnv2vcf --junitxml=junit/test-results.xml --cov-report=xml --cov-report=html
+      - name: Upload pytest test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: pytest-results
+          path: junit/test-results.xml
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
+      - name: Upload pytest coverage results xml
+        uses: actions/upload-artifact@v3
+        with:
+          name: pytest-coverage
+          path: coverage.xml
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
+      - name: Upload pytest coverage results html
+        uses: actions/upload-artifact@v3
+        with:
+          name: pytest-coverage
+          path: htmlcov
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}

@@ -123,7 +123,7 @@ def parse_metadata(file: str) -> tuple[list[int], dict[str, str]]:
                 skip_lines.append(i)
                 metadata_match = re.match(metadata_pattern, line)
                 if metadata_match:
-                    metadata[metadata_match.group(1)] = metadata_match.group(2)
+                    metadata[metadata_match.group(1).strip()] = metadata_match.group(2).strip()
     return skip_lines, metadata
 
 
