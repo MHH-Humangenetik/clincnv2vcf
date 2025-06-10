@@ -23,7 +23,7 @@ jobs:
     - name: Build executable
       run: pyinstaller --onefile --name clincnv2vcf_${{ matrix.os }} clincnv2vcf.py
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: clincnv2vcf-${{ matrix.os }}
         path: dist/*
