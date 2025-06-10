@@ -27,21 +27,21 @@ jobs:
       - name: Upload pytest test results
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-results
+          name: pytest-results-xml
           path: junit/test-results.xml
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
       - name: Upload pytest coverage results xml
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-coverage
+          name: pytest-coverage-xml
           path: coverage.xml
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
       - name: Upload pytest coverage results html
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-coverage
+          name: pytest-coverage-html
           path: htmlcov
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
