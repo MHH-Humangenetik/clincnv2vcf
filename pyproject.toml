@@ -1,7 +1,7 @@
 
 [project]
 name = "clincnv2vcf"
-version = "v1.0.0-beta3"
+version = "1.0.0-beta3"
 description = "Convert ClinCNV TSV file(s) to VCF format."
 readme = "README.md"
 requires-python = ">=3.12"
