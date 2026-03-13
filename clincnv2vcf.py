@@ -35,18 +35,22 @@ def main(reference_genome: Fasta, input_file: str, sample_id: str, ci: int) -> N
         "loglikelihood"
     ].abs()  # Use absolute value of loglikelihood because clincnv sometimes reports negative values
     df_out["FILTER"] = df_in.apply(
-        lambda x: "PASS"
-        if get_DELDUP_by_CN(
-            x["CN_change"],
-            male_x=(male and (x["#chr"] == "X") or (x["#chr"] == "chrX")),
-        )
-        != "."
-        else f"CN={x['CN_change']}",
+        lambda x: (
+            "PASS"
+            if get_DELDUP_by_CN(
+                x["CN_change"],
+                male_x=(male and (x["#chr"] == "X") or (x["#chr"] == "chrX")),
+            )
+            != "."
+            else f"CN={x['CN_change']}"
+        ),
         axis=1,
     )
     df_out["INFO"] = (
         df_in.apply(
-            lambda x: f"SVTYPE={get_DELDUP_by_CN(x['CN_change'], male_x=(male and ((x['#chr'] == 'X') or (x['#chr'] == 'chrX'))))}",
+            lambda x: (
+                f"SVTYPE={get_DELDUP_by_CN(x['CN_change'], male_x=(male and ((x['#chr'] == 'X') or (x['#chr'] == 'chrX'))))}"
+            ),
             axis=1,
         )
         + ";END="
@@ -123,7 +127,9 @@ def parse_metadata(file: str) -> tuple[list[int], dict[str, str]]:
                 skip_lines.append(i)
                 metadata_match = re.match(metadata_pattern, line)
                 if metadata_match:
-                    metadata[metadata_match.group(1).strip()] = metadata_match.group(2).strip()
+                    metadata[metadata_match.group(1).strip()] = metadata_match.group(
+                        2
+                    ).strip()
     return skip_lines, metadata
 
 
@@ -155,7 +161,6 @@ def clean_info(info: str) -> str:
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(
         description="Convert ClinCNV TSV file(s) to VCF-format."
     )

@@ -1,6 +1,6 @@
 # CNV2VCF
 
-[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/MHH-Humangenetik/clincnv2vcf?include_prereleases)](https://github.com/MHH-Humangenetik/clincnv2vcf/releases) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7733351.svg)](https://doi.org/10.5281/zenodo.7733351) [![License: MIT](https://img.shields.io/github/license/MHH-Humangenetik/clincnv2vcf)](LICENSE) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/MHH-Humangenetik/clincnv2vcf?include_prereleases)](https://github.com/MHH-Humangenetik/clincnv2vcf/releases) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7733351.svg)](https://doi.org/10.5281/zenodo.7733351) [![License: MIT](https://img.shields.io/github/license/MHH-Humangenetik/clincnv2vcf)](LICENSE) [![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-D7FF64.svg)](https://github.com/astral-sh/ruff)
 
 CNV2VCF is a tool to convert output of [ClinCNV](https://github.com/imgag/ClinCNV) to VCF format.
 

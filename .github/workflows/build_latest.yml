@@ -10,18 +10,18 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
     - name: Setup python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: 3.9
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v6
     - name: Setup dependencies
       run: |
-        pip install pipenv pyinstaller
-        pipenv requirements > requirements.txt
-        pip install -r requirements.txt
+        uv sync --group dev
     - name: Build executable
-      run: pyinstaller --onefile --name clincnv2vcf_${{ matrix.os }} clincnv2vcf.py
+      run: uv run pyinstaller --onefile --name clincnv2vcf_${{ matrix.os }} clincnv2vcf.py
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:

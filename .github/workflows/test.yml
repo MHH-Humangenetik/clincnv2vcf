@@ -7,23 +7,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup python 3.9
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: 3.9
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
       - name: Setup dependencies
         run: |
-          pip install pipenv
-          pipenv requirements --dev > requirements.txt
-          pip install -r requirements.txt
+          uv sync --group dev
       - name: Lint with ruff
         # default set of ruff rules with GitHub Annotations
         run: |
-          ruff --format=github --target-version=py39 .
+          uv run ruff check --output-format=github .
+          uv run ruff format --check .
       - name: Test with pytest
         run: |
-          pytest --cov=clincnv2vcf --junitxml=junit/test-results.xml --cov-report=xml --cov-report=html
+          uv run pytest --cov=clincnv2vcf --junitxml=junit/test-results.xml --cov-report=xml --cov-report=html
       - name: Upload pytest test results
         uses: actions/upload-artifact@v4
         with:
